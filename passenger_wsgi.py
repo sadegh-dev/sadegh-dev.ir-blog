@@ -1,0 +1,1 @@
+from sadegh.wsgi import application

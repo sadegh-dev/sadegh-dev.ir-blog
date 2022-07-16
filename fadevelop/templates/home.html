@@ -1,0 +1,36 @@
+{% extends 'lib/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation-->
+{% include 'lib/navigation_home.html' %}
+<!-- Page Content-->
+<div class="container-fluid p-0">
+    <!-- About-->
+    {% include 'lib/about.html' %}
+    {% for list_cat in list_cat %}  
+    <!-- Section -->
+    <section class="resume-section" id="{{list_cat.name|slugify}}" >
+        <div class="resume-section-content">            
+            <h2 class="mb-5" ><a href="{% url 'category' list_cat.name|slugify %}" class="subheading" style="font-size:4rem; font-weight: 600;">{{list_cat.name}}</a></h2>
+            {% for the_post in posts %}
+                {% if the_post.category == list_cat %}
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5 mycol">
+                        <div class="flex-grow-1" >
+                            <a href="{% url 'post-details' the_post.url %}"><h3 class="mb-0" dir="rtl" style="text-transform: lowercase; font-size: 1.4rem; font-family: samim;" > {{ the_post.title }} </h3></a>
+                            <div style="padding-top:5px;"> 
+                            {% for the_tag in the_post.tag.all %}
+                                <span style="color:#ffffff;">-</span><a href="{% url 'tag' list_cat.name|slugify the_tag.name %}"><h4 class="subheading mb-3" style="display: inline;">#{{ the_tag.name }} </h4></a>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>     
+    </section>
+    <hr class="m-0" />
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav" style="overflow: auto; direction: rtl; " >
+    <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}" >
+        <span class="d-block d-lg-none">Sadegh Rezaei</span>
+        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{% static 'img/profile.jpg' %}" alt="" /></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="direction: ltr;" >
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Sadegh Rezaei</a></li>
+            {% for lc in list_cat %}
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'category' lc.name|slugify  %}">{{ lc.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br /><div class ="mytag" dir="rtl"style="width:100%; border-top:1px dotted #999999; padding-top:10px; color:#cccccc; font-family: samim;" > </div>
+    <div class ="mytag" style="min-width: 100px; min-height: 100px; direction: ltr;">
+        {% for the_tag in list_tag %}
+            <a href="{% url 'tag' the_tag.category.name|slugify  the_tag.name %}" class="subheading"><h4 style="display: inline; font-size: 1.3rem; font-weight: 500;">#{{ the_tag.name }}</h4></a><span style="color:#012f52;"> - </span>
+        {% endfor %}
+    </div>
+</nav>

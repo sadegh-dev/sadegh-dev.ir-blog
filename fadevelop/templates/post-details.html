@@ -1,0 +1,35 @@
+{% extends 'lib/base.html' %}
+
+{% load static %}
+
+{% block description %} {{ the_post.title }} {% endblock %}
+{% block keywords %} {{ the_post.category.name }} {% endblock %}
+{% block pagetitle %} {{ the_post.title }} -Sadegh Rezaei {% endblock %}
+
+
+{% block content %}
+<!-- Navigation-->
+{% include 'lib/navigation.html' %}
+<!-- Page Content-->
+<div class="container-fluid p-0"> 
+    <!-- Section -->
+    <section class="resume-section" >
+        <div class="resume-section-content">
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5 mycol-details">
+                    <div class="flex-grow-1" >
+                        <h1 class="mb-0" dir="rtl" style="text-transform: lowercase; font-size: 2.3rem; font-family: samim; color:#012f52 " > {{ the_post.title }} </h1>
+                        <div style="padding-top:1px;"> 
+                            <h2 class="mb-5" style="display:inline;"><a href="{% url 'category' the_post.category.name|slugify %}" style="color:#999999; font-size:1.7rem ;" >{{ the_post.category.name }} - </a></h2>
+                            {% for the_tag in the_post.tag.all %}
+                                <span style="color:#ffffff;">-</span><a href="{% url 'tag' the_post.category.name|slugify the_tag.name %}" class="subheading" ><h4 class="mb-3" style="font-weight: 500; display: inline;">#{{ the_tag.name }} </h4></a>
+                            {% endfor %}
+                            <hr /><br />
+                            <p> {{ the_post.the_body|safe  }}</p>
+                        </div>
+                    </div>
+                </div>
+        </div>     
+    </section>
+    <hr class="m-0" />
+</div>
+{% endblock %}
